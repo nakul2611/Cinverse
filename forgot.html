@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CINEVERSE | Forgot Password</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    .box {
+      width: 360px;
+      padding: 40px;
+      background: rgba(0,0,0,0.85);
+      border-radius: 10px;
+    }
+
+    h2 { margin-bottom: 20px; }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: none;
+      background: #333;
+      color: white;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 6px;
+      border: none;
+      background: #e50914;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    p {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>Forgot Password</h2>
+
+  <input type="email" id="email" placeholder="Enter registered email">
+  <button onclick="recover()">Recover Password</button>
+
+  <p id="result"></p>
+
+  <div style="margin-top:15px;">
+    <a href="login.html">Back to Login</a>
+  </div>
+</div>
+
+<script>
+  function recover() {
+    const email = document.getElementById("email").value;
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    const user = users.find(u => u.email === email);
+
+    const result = document.getElementById("result");
+
+    if (!user) {
+      result.innerText = "User not found";
+    } else {
+      result.innerText = "Your password is: " + user.password;
+    }
+  }
+</script>
+
+</body>
+</html>
+

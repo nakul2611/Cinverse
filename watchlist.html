@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Watchlist</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+  <h1 class="logo">My Watchlist</h1>
+  <button onclick="location.href='index.html'" class="logout">⬅ Back</button>
+</header>
+
+<section class="movie-grid" id="watchlist"></section>
+
+<script>
+  const list = JSON.parse(localStorage.getItem("watchlist")) || [];
+  const box = document.getElementById("watchlist");
+
+  if (list.length === 0) {
+    box.innerHTML = "<p style='padding:40px'>No movies added</p>";
+  }
+
+  list.forEach(m => {
+    const c = document.createElement("div");
+    c.className = "movie-card";
+    c.innerHTML = `
+      <div class="poster">
+        <img src="${m.poster}">
+        <div class="overlay">
+          <button class="play-btn">▶ Play</button>
+        </div>
+      </div>
+      <h3>${m.title}</h3>
+    `;
+    c.onclick = () =>
+      location.href = `player.html?movie=${m.key}&title=${encodeURIComponent(m.title)}`;
+    box.appendChild(c);
+  });
+</script>
+
+</body>
+</html>
+
