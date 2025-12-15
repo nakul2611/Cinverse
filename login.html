@@ -1,198 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>CINEVERSE | Login</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-  * {
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-  }
-
-  body {
-    margin: 0;
-    height: 100vh;
-    overflow: hidden;
-    background: black;
-  }
-
-  /* ===== BACKGROUND POSTER CLOUD ===== */
-  .poster-cloud {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    animation: moveCloud 40s linear infinite;
-    opacity: 0.35;
-  }
-
-  .poster-cloud img {
-    height: 260px;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-  }
-
-  @keyframes moveCloud {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
-
-  /* Dark overlay */
-  .overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.75);
-  }
-
-  /* ===== LOGIN CARD ===== */
-  .login-wrapper {
-    position: relative;
-    z-index: 5;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .login-card {
-    width: 360px;
-    padding: 40px;
-    background: rgba(0,0,0,0.9);
-    border-radius: 12px;
-    color: white;
-    animation: fadeIn 0.8s ease;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .login-card h2 {
-    margin-bottom: 25px;
-    letter-spacing: 1px;
-  }
-
-  .login-card input {
-    width: 100%;
-    padding: 14px;
-    margin-bottom: 15px;
-    border-radius: 6px;
-    border: none;
-    background: #333;
-    color: white;
-    font-size: 14px;
-  }
-
-  .login-card button {
-    width: 100%;
-    padding: 14px;
-    border-radius: 6px;
-    border: none;
-    background: #e50914;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-  }
-
-  .login-card button:hover {
-    background: #f6121d;
-  }
-
-  .links {
-    margin-top: 15px;
-    font-size: 13px;
-  }
-
-  .links a {
-    color: #aaa;
-    text-decoration: none;
-  }
-
-  .links a:hover {
-    text-decoration: underline;
-  }
-</style>
+  <meta charset="UTF-8">
+  <title>CINEVERSE | Sign In</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="auth-body">
 
-<!-- POSTER CLOUD -->
-<div class="poster-cloud" id="posterCloud"></div>
+<!-- MOVING BACKGROUND -->
+<div class="poster-marquee">
+  <div class="poster-track">
+    <img src="posters/interstellar.jpg">
+    <img src="posters/Dhadak2poster.jpg">
+    <img src="posters/myfault.jpg">
+    <img src="posters/readyplayer.jpg">
+    <img src="posters/500 days of summer.jpg">
 
-<!-- DARK OVERLAY -->
-<div class="overlay"></div>
-
-<!-- LOGIN -->
-<div class="login-wrapper">
-  <div class="login-card">
-    <h2>Sign In</h2>
-
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
-
-    <button onclick="login()">Sign In</button>
-
-    <div class="links">
-      <a href="forgot.html">Forgot password?</a><br>
-      <a href="register.html">New user? Register</a>
-    </div>
+    <!-- duplicate for infinite loop -->
+    <img src="posters/interstellar.jpg">
+    <img src="posters/Dhadak2poster.jpg">
+    <img src="posters/myfault.jpg">
+    <img src="posters/readyplayer.jpg">
+    <img src="posters/500 days of summer.jpg">
   </div>
 </div>
 
-<script>
-  // Skip login if already logged in
-  if (localStorage.getItem("loggedIn") === "true") {
-    window.location.href = "index.html";
-  }
+<!-- LOGIN CARD -->
+<div class="auth-card">
+  <h1>CINEVERSE</h1>
+  <h3>Sign In</h3>
 
-  /* ===== RECENT 5 MOVIES (CHANGE HERE) ===== */
-  const recentPosters = [
-    "https://image.tmdb.org/t/p/original/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg",
-    "posters/dhadak2poster.jpg",
-    "posters/readyplayer.jpg",
-    " posters/500 days of summer.jpg",
-    "posters/myfault.jpg",
-  ];
+  <input type="email" id="loginEmail" placeholder="Email">
+  <input type="password" id="loginPassword" placeholder="Password">
 
-  const cloud = document.getElementById("posterCloud");
+  <button onclick="login()">Sign In</button>
 
-  // Duplicate posters for smooth loop
-  [...recentPosters, ...recentPosters].forEach(src => {
-    const img = document.createElement("img");
-    img.src = src;
-    cloud.appendChild(img);
-  });
+  <p>
+    New user? <a href="register.html">Register</a><br>
+    <a href="forgot.html">Forgot password?</a>
+  </p>
+</div>
 
-  /* ===== LOGIN FUNCTION ===== */
-  function login() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const user = users.find(
-      u => u.email === email && u.password === password
-    );
-
-    if (!user) {
-      alert("Invalid email or password");
-      return;
-    }
-
-    localStorage.setItem("loggedIn", "true");
-    localStorage.setItem("userEmail", email);
-    window.location.href = "index.html";
-  }
-</script>
-
+<script src="auth.js"></script>
 </body>
 </html>
+
+
 
 
 
