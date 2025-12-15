@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CINEVERSE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+
+<header class="navbar">
+  <h1 class="logo">CINEVERSE</h1>
+  <input id="searchInput" class="search" placeholder="Search movies..." />
+  <button class="logout">Logout</button>
+  <button id="themeToggle" class="theme-btn">🌙</button>
+  <button class="primary-btn" onclick="toggleWatchlist()">
+  ⭐ Watchlist
+</button>
+
+
+</header>
+
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <h2 id="heroTitle"></h2>
+    <button id="heroPlay" class="primary-btn">▶ Watch</button>
+    <div class="dots" id="dots"></div>
+  </div>
+</section>
+
+<h2 class="section-title">Trending Movies</h2>
+<section class="movie-grid" id="movies"></section>
+<h2 class="section-title" id="watchlistTitle" style="display:none">
+  My Watchlist
+</h2>
+
+<section
+  class="movie-grid"
+  id="watchlistGrid"
+  style="display:none">
+</section>
+
+
+<script src="render.js"></script>
+</body>
+</html>
+
+
