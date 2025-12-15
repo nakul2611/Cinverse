@@ -18,7 +18,15 @@
 <header class="navbar">
   <h1 class="logo">CINEVERSE</h1>
   <input id="searchInput" class="search" placeholder="Search movies..." />
-  <button class="logout">Logout</button>
+  <button onclick="logout()">Logout</button>
+
+<script>
+function logout() {
+  localStorage.clear();
+  window.location.href = "login.html";
+}
+</script>
+
   <button id="themeToggle" class="theme-btn">🌙</button>
   <button class="primary-btn" onclick="toggleWatchlist()">
   ⭐ Watchlist
@@ -51,6 +59,7 @@
 <script src="render.js"></script>
 </body>
 </html>
+
 
 
 
